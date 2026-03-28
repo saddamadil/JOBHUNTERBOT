@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In — JobHunter AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#F59E0B;--al:#FCD34D;--ad:#D97706;--t:#14B8A6;--c:#FEFCE8;--bg:#09090B;--card:#111113;--s:#18181B;--b:rgba(245,158,11,0.15);--m:#A1A1AA;--d:#52525B}
+body{font-family:'Instrument Sans',sans-serif;background:var(--bg);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem 1rem;position:relative;overflow:hidden}
+.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none}
+.o1{width:500px;height:400px;background:radial-gradient(circle,rgba(245,158,11,0.08)0%,transparent 70%);top:-100px;left:-100px;animation:drift 12s ease-in-out infinite alternate}
+.o2{width:400px;height:400px;background:radial-gradient(circle,rgba(20,184,166,0.06)0%,transparent 70%);bottom:-50px;right:-50px;animation:drift 12s ease-in-out infinite alternate-reverse}
+.bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(245,158,11,0.03)1px,transparent 1px),linear-gradient(90deg,rgba(245,158,11,0.03)1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+@keyframes drift{from{transform:translate(0,0)}to{transform:translate(30px,20px)}}
+.page{position:relative;z-index:1;width:100%;max-width:420px}
+.brand{text-align:center;margin-bottom:2rem;animation:fadeDown .5s ease both}
+.brand-icon{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;background:var(--a);border-radius:14px;margin-bottom:14px;box-shadow:0 0 0 1px rgba(245,158,11,.3),0 8px 32px rgba(245,158,11,.2)}
+.brand-icon svg{width:26px;height:26px;fill:none;stroke:#09090B;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.brand-name{font-family:'Cabinet Grotesk',sans-serif;font-size:24px;font-weight:800;color:var(--c);letter-spacing:-.5px}
+.brand-name em{color:var(--al);font-style:normal}
+.brand-tag{font-size:12px;color:var(--d);margin-top:5px}
+.card{background:var(--card);border:1px solid var(--b);border-radius:20px;padding:2rem;position:relative;overflow:hidden;animation:fadeUp .5s ease .08s both}
+.card-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--a),transparent)}
+.card-title{font-family:'Cabinet Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--c);margin-bottom:4px}
+.card-sub{font-size:13px;color:var(--m);margin-bottom:1.75rem}
+.error-msg{display:flex;align-items:center;gap:9px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.22);border-radius:10px;padding:11px 13px;margin-bottom:1.25rem;font-size:13px;color:#FCA5A5;animation:shake .4s ease}
+.error-msg svg{width:15px;height:15px;flex-shrink:0;fill:none;stroke:#FCA5A5;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.field{margin-bottom:1.1rem}
+.field label{display:block;font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.9px;margin-bottom:7px}
+.input-wrap{position:relative}
+.input-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);opacity:.35;pointer-events:none;display:flex;align-items:center}
+.input-ico svg{width:15px;height:15px;fill:none;stroke:var(--c);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+input[type="text"],input[type="password"]{width:100%;background:var(--s);border:1px solid var(--b);border-radius:10px;color:var(--c);font-family:'Instrument Sans',sans-serif;font-size:14px;padding:12px 14px 12px 42px;outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none}
+input:focus{border-color:var(--a);box-shadow:0 0 0 3px rgba(245,158,11,.08)}
+input::placeholder{color:var(--d)}
+.pw-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:4px;opacity:.35;transition:opacity .2s;display:flex;align-items:center}
+.pw-eye:hover{opacity:.7}
+.pw-eye svg{width:15px;height:15px;fill:none;stroke:var(--c);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-submit{width:100%;margin-top:.5rem;background:var(--a);color:#09090B;border:none;border-radius:10px;padding:13px;font-family:'Cabinet Grotesk',sans-serif;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s,transform .15s,box-shadow .2s}
+.btn-submit:hover{background:var(--al);box-shadow:0 4px 20px rgba(245,158,11,.3)}
+.btn-submit:active{transform:scale(.98)}
+.btn-submit svg{width:15px;height:15px;fill:none;stroke:#09090B;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.btn-submit:hover svg{transform:translateX(2px)}
+.divider{display:flex;align-items:center;gap:10px;margin:1.75rem 0 1.25rem}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--b)}
+.divider span{font-size:11px;color:var(--d)}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.feat{display:flex;align-items:center;gap:8px;background:var(--s);border:1px solid rgba(245,158,11,.08);border-radius:9px;padding:9px 11px;font-size:12px;color:var(--m)}
+.feat svg{width:14px;height:14px;flex-shrink:0;fill:none;stroke:var(--a);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.footer{text-align:center;margin-top:1.5rem;font-size:11px;color:var(--d);animation:fadeUp .5s ease .2s both}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+</style>
+</head>
+<body>
+<div class="orb o1"></div>
+<div class="orb o2"></div>
+<div class="bg-grid"></div>
+<div class="page">
+  <div class="brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+    </div>
+    <div class="brand-name">Job<em>Hunter</em></div>
+    <div class="brand-tag">AI-powered job search → cover letter → auto email</div>
+  </div>
+  <div class="card">
+    <div class="card-glow"></div>
+    <div class="card-title">Welcome back</div>
+    <div class="card-sub">Sign in to your agent dashboard</div>
+    {% if error %}
+    <div class="error-msg">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      {{ error }}
+    </div>
+    {% endif %}
+    <form method="POST" action="/login" autocomplete="on">
+      <div class="field">
+        <label for="username">Username</label>
+        <div class="input-wrap">
+          <div class="input-ico"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <input type="text" id="username" name="username" placeholder="your username" autocomplete="username" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="input-wrap">
+          <div class="input-ico"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <input type="password" id="password" name="password" placeholder="••••••••••" autocomplete="current-password" required>
+          <button type="button" class="pw-eye" onclick="togglePw()" id="pw-btn">
+            <svg id="pw-icon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <button class="btn-submit" type="submit">
+        Sign In
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </form>
+    <div class="divider"><span>What's inside</span></div>
+    <div class="features">
+      <div class="feat"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>28+ Job Boards</div>
+      <div class="feat"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>AI Cover Letters</div>
+      <div class="feat"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Auto Email Queue</div>
+      <div class="feat"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>AI Match Score</div>
+    </div>
+  </div>
+  <div class="footer">Private access only &mdash; &copy; 2026 Saddam Adil</div>
+</div>
+<script>
+function togglePw(){
+  var i=document.getElementById('password'),ic=document.getElementById('pw-icon'),btn=document.getElementById('pw-btn');
+  if(i.type==='password'){i.type='text';btn.style.opacity='.7';ic.innerHTML='<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';}
+  else{i.type='password';btn.style.opacity='.35';ic.innerHTML='<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';}
+}
+</script>
+</body>
+</html>
