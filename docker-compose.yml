@@ -1,0 +1,13 @@
+services:
+  jobhunter:
+    build: .
+    container_name: jobhunter
+    ports:
+      - "5000:5000"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - SECRET_KEY=${SECRET_KEY:-please-change-this-secret-key}
+      - DB_PATH=/data/jobhunter.db
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
